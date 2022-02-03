@@ -60,7 +60,7 @@ namespace AtCoder01
                  *****************************************/
                 //上
                 var up_pos = maze[x - 1, y + 0];
-                if (up_pos == '.' && move_count[x - 1, y + 0] == 0) //既に移動済みのマスには移動しない
+                if (up_pos.Equals('.') && move_count[x - 1, y + 0] == 0) //既に移動済みのマスには移動しない
                 {
                     //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
                     if (x - 1 == 1 && y + 0 == 1)
@@ -82,7 +82,7 @@ namespace AtCoder01
                 }
                 //下
                 var down_pos = maze[x + 0, y + 1];
-                if (down_pos == '.' && move_count[x + 0, y + 1] == 0) //既に移動済みのマスには移動しない
+                if (down_pos.Equals('.') && move_count[x + 0, y + 1] == 0) //既に移動済みのマスには移動しない
                 {
                     //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
                     if (x + 0 == 1 && y + 1 == 1)
@@ -102,7 +102,7 @@ namespace AtCoder01
                 }
                 //左
                 var left_pos = maze[x + 1, y + 0];
-                if (left_pos == '.' && move_count[x + 1, y + 0] == 0) //既に移動済みのマスには移動しない
+                if (left_pos.Equals('.') && move_count[x + 1, y + 0] == 0) //既に移動済みのマスには移動しない
                 {
                     //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
                     if (x + 1 == 1 && y + 0 == 1)
@@ -123,7 +123,7 @@ namespace AtCoder01
                 }
                 //右
                 var right_pos = maze[x + 0, y - 1];
-                if (right_pos == '.' && move_count[x + 0, y - 1] == 0) //既に移動済みのマスには移動しない
+                if (right_pos.Equals('.') && move_count[x + 0, y - 1] == 0) //既に移動済みのマスには移動しない
                 {
                     //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
                     if (x + 0 == 1 && y - 1 == 1)
