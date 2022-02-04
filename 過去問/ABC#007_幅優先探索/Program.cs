@@ -24,14 +24,14 @@ namespace AtCoder01
             //迷路(2次元配列)
             char[,] maze = new char[R[0], R[1]];
             //移動数管理
-            int[,] move_count = new int[R[0], R[1]];
+            int[,] moveCount = new int[R[0], R[1]];
 
             //迷路情報の取得(行数分だけループ)
             for (int i = 0; i <= R[0]; i++)
             { 
-                var maze_tmp = Console.ReadLine().ToCharArray(); //一文字ずつ代入
+                var mazeTmp = Console.ReadLine().ToCharArray(); //一文字ずつ代入
                 int count = 0;
-                foreach (char j in maze_tmp)
+                foreach (var j in mazeTmp)
                 {
                     maze[i, count] = j;
                     count++;
@@ -39,44 +39,44 @@ namespace AtCoder01
             }
 
             //キュー(x,y)
-            var q_y = new Queue<int>();
-            var q_x = new Queue<int>();
+            var qY = new Queue<int>();
+            var qX = new Queue<int>();
 
             //スタート位置の要素番号を格納
-            q_x.Enqueue(s[1] - 1);
-            q_y.Enqueue(s[0] - 1);
+            qX.Enqueue(s[1] - 1);
+            qY.Enqueue(s[0] - 1);
 
             //デキュー
             int x;
             int y;
 
             //上右下左の順
-            int[] move_x = {-1,0,1,0};
-            int[] move_y = {0,1,0,-1};
+            int[] moveX = {-1,0,1,0};
+            int[] moveY = {0,1,0,-1};
 
             while (true)
             {
                 //要素番号取り出し
-                x = q_x.Dequeue();
-                y = q_y.Dequeue();
+                x = qX.Dequeue();
+                y = qY.Dequeue();
 
-                //基準のマスの上右下左を順に確認し、各マスに"."が格納されている場合は、そのマスをキューに追加し、移動数を「move_count」に格納する
+                //基準のマスの上右下左を順に確認し、各マスに"."が格納されている場合は、そのマスをキューに追加し、移動数を「moveCount」に格納する
                 for (int i=0;i<4;i++) {
-                    var pos = maze[x + move_x[i], y + move_y[i]];
-                    if (pos.Equals('.') && move_count[x + move_x[i], y + move_y[i]] == 0) //既に移動済みのマスには移動しない
+                    var pos = maze[x + moveX[i], y + moveY[i]];
+                    if (pos.Equals('.') && moveCount[x + moveX[i], y + moveY[i]] == 0) //既に移動済みのマスには移動しない
                     {
                         //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
-                        if (x + move_x[i] == 1 && y + move_y[i] == 1)
+                        if (x + moveX[i] == 1 && y + moveY[i] == 1)
                         {
                             ;
                         }
                         else
                         {
-                            q_x.Enqueue(x + move_x[i]);
-                            q_y.Enqueue(y + move_y[i]);
+                            qX.Enqueue(x + moveX[i]);
+                            qY.Enqueue(y + moveY[i]);
 
                             //基準のマスの移動数+1
-                            move_count[x + move_x[i], y + move_y[i]] = move_count[x, y] + 1;
+                            moveCount[x + moveX[i], y + moveY[i]] = moveCount[x, y] + 1;
                         }
                     }
                 }
@@ -85,7 +85,7 @@ namespace AtCoder01
             }
 
             //結果表示
-            Console.WriteLine("最短距離：" + move_count[g[0] - 1, g[1] - 1]);
+            Console.WriteLine("最短距離：" + moveCount[g[0] - 1, g[1] - 1]);
         }
     }
 }
