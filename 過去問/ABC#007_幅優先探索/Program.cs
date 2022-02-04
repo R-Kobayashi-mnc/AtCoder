@@ -38,7 +38,6 @@ namespace AtCoder01
                 }
             }
 
-
             //キュー(x,y)
             var q_y = new Queue<int>();
             var q_x = new Queue<int>();
@@ -46,7 +45,6 @@ namespace AtCoder01
             //スタート位置の要素番号を格納
             q_x.Enqueue(s[1] - 1);
             q_y.Enqueue(s[0] - 1);
-
 
             //デキュー
             int x;
@@ -58,7 +56,6 @@ namespace AtCoder01
 
             while (true)
             {
-
                 //要素番号取り出し
                 x = q_x.Dequeue();
                 y = q_y.Dequeue();
