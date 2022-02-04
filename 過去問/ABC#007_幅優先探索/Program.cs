@@ -48,102 +48,43 @@ namespace AtCoder01
             q_y.Enqueue(s[0] - 1);
 
 
+            //デキュー
+            int x;
+            int y;
+
+            //上右下左の順
+            int[] move_x = {-1,0,1,0};
+            int[] move_y = {0,1,0,-1};
+
             while (true)
             {
 
                 //要素番号取り出し
-                int x = q_x.Dequeue();
-                int y = q_y.Dequeue();
+                x = q_x.Dequeue();
+                y = q_y.Dequeue();
 
-                /*****************************************
-                 *上下左右で「.」のマスをキューに格納する 
-                 *****************************************/
-                //上
-                var up_pos = maze[x - 1, y + 0];
-                if (up_pos.Equals('.') && move_count[x - 1, y + 0] == 0) //既に移動済みのマスには移動しない
-                {
-                    //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
-                    if (x - 1 == 1 && y + 0 == 1)
+                //基準のマスの上右下左を順に確認し、各マスに"."が格納されている場合は、そのマスをキューに追加し、移動数を「move_count」に格納する
+                for (int i=0;i<4;i++) {
+                    var pos = maze[x + move_x[i], y + move_y[i]];
+                    if (pos.Equals('.') && move_count[x + move_x[i], y + move_y[i]] == 0) //既に移動済みのマスには移動しない
                     {
-                        ;
-                    }
-                    else
-                    {
-                        q_x.Enqueue(x - 1);
-                        q_y.Enqueue(y + 0);
+                        //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
+                        if (x + move_x[i] == 1 && y + move_y[i] == 1)
+                        {
+                            ;
+                        }
+                        else
+                        {
+                            q_x.Enqueue(x + move_x[i]);
+                            q_y.Enqueue(y + move_y[i]);
 
-                        //Console.WriteLine("元のマス" + move_count[x, y]);
-
-                        //基準のマスの移動数+1
-                        move_count[x - 1, y + 0] = move_count[x, y] + 1;
-
-                        //Console.WriteLine("上移動数" + move_count[x - 1, y + 0]);
+                            //基準のマスの移動数+1
+                            move_count[x + move_x[i], y + move_y[i]] = move_count[x, y] + 1;
+                        }
                     }
                 }
-                //下
-                var down_pos = maze[x + 0, y + 1];
-                if (down_pos.Equals('.') && move_count[x + 0, y + 1] == 0) //既に移動済みのマスには移動しない
-                {
-                    //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
-                    if (x + 0 == 1 && y + 1 == 1)
-                    {
-                        ;
-                    }
-                    else
-                    {
-                        q_x.Enqueue(x + 0);
-                        q_y.Enqueue(y + 1);
-
-                        //Console.WriteLine("元のマス" + move_count[x, y]);
-                        //基準のマスの移動数+1
-                        move_count[x + 0, y + 1] = move_count[x, y] + 1;
-                        //Console.WriteLine("下移動数" + move_count[x + 0, y + 1]);
-                    }
-                }
-                //左
-                var left_pos = maze[x + 1, y + 0];
-                if (left_pos.Equals('.') && move_count[x + 1, y + 0] == 0) //既に移動済みのマスには移動しない
-                {
-                    //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
-                    if (x + 1 == 1 && y + 0 == 1)
-                    {
-                        ;
-                    }
-                    else
-                    {
-                        q_x.Enqueue(x + 1);
-                        q_y.Enqueue(y + 0);
-
-
-                        //Console.WriteLine("元のマス" + move_count[x, y]);
-                        //基準のマスの移動数+1
-                        move_count[x + 1, y + 0] = move_count[x, y] + 1;
-                        //Console.WriteLine("左移動数" + move_count[x + 1, y + 0]);
-                    }
-                }
-                //右
-                var right_pos = maze[x + 0, y - 1];
-                if (right_pos.Equals('.') && move_count[x + 0, y - 1] == 0) //既に移動済みのマスには移動しない
-                {
-                    //スタート地点のマスなのか判定(スタート地点のマスは0であるため別途判定)
-                    if (x + 0 == 1 && y - 1 == 1)
-                    {
-                        ;
-                    }
-                    else
-                    {
-                        q_x.Enqueue(x + 0);
-                        q_y.Enqueue(y - 1);
-
-                        //Console.WriteLine("元のマス" + move_count[x, y]);
-                        //基準のマスの移動数+1
-                        move_count[x + 0, y - 1] = move_count[x, y] + 1;
-                        //Console.WriteLine("右移動数" + move_count[x + 0, y - 1]);
-                    }
-                }
-
-                //ゴール地点のマスなのかを判定
-                if (x == g[0] - 1 && y == g[1] - 1)
+                    //ゴール地点のマスなのかを判定
+                    if (x == g[0] - 1 && y == g[1] - 1)
                 {
                     break;
                 }
