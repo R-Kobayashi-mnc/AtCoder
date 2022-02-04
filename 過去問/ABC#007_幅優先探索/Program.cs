@@ -81,10 +81,7 @@ namespace AtCoder01
                     }
                 }
                     //ゴール地点のマスなのかを判定
-                    if (x == g[0] - 1 && y == g[1] - 1)
-                {
-                    break;
-                }
+                    if (x == g[0] - 1 && y == g[1] - 1) break;
             }
 
             //結果表示
